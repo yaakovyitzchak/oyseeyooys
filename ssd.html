@@ -1,0 +1,55 @@
+B"H
+<meta charset="utf-8">
+<button id="ln">Load next 3?</button>
+<div id="kin"></div><br>
+<div id="mayn"></div>
+<script>
+	var base = "helemHawatzmee"
+	var rambamz = {}
+	var curName = ""
+	var d = new Date()
+	loadNext(3)
+	
+	ln.onclick = () => loadNext(3)
+	function rambamify(txt) {
+		rambamz[curName] = txt
+	}
+	
+	function loadNext(nm) {
+		
+		var i
+		for(i = 0; i < nm; i++) {
+			makeBtn(d.toLocaleDateString())
+			d.setDate(d.getDate()+1)
+		}
+	}
+	
+	function makeBtn(dt) {
+		var d = new Date(dt)
+		var t = d.toLocaleDateString()
+		var b =document.createElement("button")
+		b.innerHTML = t
+		kin.appendChild(b)
+		b.onclick = function() {
+			var paws = rambamz[t]
+			if(!paws) {
+				curName = t
+				var sc = document.createElement("script")
+				sc.src = base + "/ram_" + 
+					t.split("/").join("_") + ".js"
+				sc.onload = () => {
+					var paws = rambamz[t]
+					if(paws) {
+						mayn.innerHTML = paws	
+					} else alert("LOL?")
+				}
+				sc.onerror = () => {
+					alert("not loaded for some reSon")
+				}
+				document.body.appendChild(sc)
+			} else {
+				mayn.innerHTML = paws
+			}
+		}
+	}
+</script>
