@@ -1,8 +1,7 @@
 //B"H
 var oyss = (new function() {
 		
-		var oys = "אבגדהוזחטיכךלמםנןסעפףצץקרשתְֱֲֳִֵֶַָֹֺֻּֽ",
-			voyls = {
+		var voyls = {
 				'ֻ':"oo",
 				'ָ':"uh",
 				'ַ':"aw",
@@ -15,6 +14,27 @@ var oyss = (new function() {
 				'ְ':"ih",
 				'ֹ':"o"
 			},
+			voylsInOrder = Object.keys(voyls),
+			englishVowels = [
+				"kooboots",
+				"kuhmuhts",
+				"pawtawch",
+				"sehguhl",
+				"tsayray",
+				"cheereek",
+				"chawtawf_kuhmuts",
+				"chawtawf_pawtawch",
+				"chawtawf_sehguhl",
+				"shivaw",
+				"choluhm"
+			],
+			
+			e2hv = Object.fromEntries(
+				voylsInOrder.map((x,i) => [
+					englishVowels[i],x
+				])
+			),
+			
 			aytsh = [
 				'ְ','ֱ',
 				'ֳ','ָ','ֶ'
@@ -40,7 +60,7 @@ var oyss = (new function() {
 				"ל":"l",
 				"מ":"m",
 				"נ":"n",
-				"ס":"s",
+				"ס":"ss",
 				"ע":"",
 				"פ":"f",
 				"צ":"ts",
@@ -54,11 +74,49 @@ var oyss = (new function() {
 				"ף":"f",
 				"ץ":"ts"
 			},
+			otherMarks = [
+				'֤', 
+				'֙',  
+				'֔', 
+				'֛', 
+				'ֽ', 
+				'֥', 
+				'֖', 
+				'֣', 
+				'֑',
+				'ׁ',
+				'ׂ',
+				'֗', 
+				'֨', 
+				'֩', 
+				'֜', 
+				'֚', 
+				'֕',
+				'֧',
+				'֠', 
+				'֞', 
+				'֘', 
+				'֒',
+			],
+			other=[
+				'’',
+				'—',
+				'-',
+				'|',
+				'…',
+				'‘',
+				'־',
+			],
+			onlyLetters = Object.keys(letors),
+			
 			dag = 'ּ',
+			notDoubleable = [
+				"y", "h"
+			],
 			dawgisht = {
 				"ב":"b",
 				"ו":"oo",
-				"כ":"c",
+				"כ":"ck",
 				"פ":"p",
 				"ת":"t",
 				"ך":"ck",
@@ -68,6 +126,12 @@ var oyss = (new function() {
 			choyluhmd = {
 				"ו":"o"	
 			},
+			onlyVowels = Object.keys(voyls)
+				.concat(choy),
+			allNekoodos = onlyVowels.concat(
+				otherMarks, dag	
+			)
+			oys = allNekoodos,
 			
 			actshual = oys,
 			prefix = [
@@ -97,15 +161,6 @@ var oyss = (new function() {
 					"to the"
 				],
 				
-				[
-				
-					[
-						"מ",
-						'ְ'
-					],
-					
-					"from"
-				],
 				
 				[
 				
@@ -214,6 +269,17 @@ var oyss = (new function() {
 				
 					[
 						"ה",
+						'ָ'
+					],
+					
+					"the"
+				],
+				
+				
+				[
+				
+					[
+						"ה",
 						'ַ'
 					],
 					
@@ -264,6 +330,135 @@ var oyss = (new function() {
 				"ש"	:true
 			}
 		var slf = this
+		this.onlyVowels = onlyVowels
+		this.onlyLetters = onlyLetters
+		function makeSoundFromOys(mits) {
+			return new Koyl(mits)
+			
+			
+			
+		//	return phoyn
+		}
+		
+		function Koyl(dayTuh) {
+			var cnst = dayTuh.cnst || dayTuh.cn ||
+					dayTuh.constinent
+			if(cnst) {
+				this.kawsheh = cnst	
+			}
+			var vwl = dayTuh.vowel || dayTuh.vwl
+			if(vwl) {
+				this.vowel = vwl	
+			}
+			
+			var mits = dayTuh
+			
+			var leto=mits.letter || mits.oys
+			var snd = ""
+			var voyl = mits.vowel
+			if(leto) {
+				
+				var dawg = dawgisht[leto]
+				if(mits.dagesh && dawg) {
+					
+					this.kawsheh = dawg	
+					
+				} else {
+					this.kawsheh = letors[leto]	
+				}
+				
+				var ch = choyluhmd[leto]
+				if(
+					ch &&
+					voyl == choy
+				) {
+					this.kawsheh = ""
+					this.vowel = ch
+				}
+			}
+			
+			
+			
+			if(voyl && voyls[voyl]) {
+				this.vowel = voyls[voyl]
+			}
+			
+			this.koylify = () => {
+				this.roowawch = (
+					(this.kawsheh || "") + 
+					(this.vowel || "")
+					
+				)
+			}
+			this.koylify()
+		}
+		this.Koyl = this.kyl = Koyl
+	
+		function Deeboyr() {
+			var a = [...arguments]
+			
+			/*args.forEach((x,i)=> {
+				this[i] = x
+			})
+			this.length = args.length
+			var ob = Array.from(this)*/
+			
+			
+			a.koylify = () =>
+				a
+				.filter(x=>
+					x.koyl.roowawch		
+				)
+				.map((y,i,a) => (
+					(
+						i > 0 &&
+						(
+							aytshEng
+							.includes(
+								a[i - 1].koyl.vowel
+							) 
+						)
+						&& !y.koyl.kawsheh
+					) ? "-" + capFrst(
+						y.koyl.roowawch	
+					) : (
+							i > 0 &&
+							y.koyl.kawsheh &&
+						
+							y.koyl.kawsheh[0]
+							.toLowerCase() ==
+							y.koyl.kawsheh[0] &&
+						
+							notDoubleable.includes(
+								y.koyl.kawsheh[0]
+							) 
+							&&
+							a[i - 1].koyl.roowawch[
+								a[i - 1]
+								.koyl
+								.roowawch.length - 1
+							] == 
+								y.koyl.kawsheh[0]
+								?
+								/*y.koyl.roowawch
+								.length > 1 ?*/
+								"-" + capFrst(
+									y.koyl.kawsheh)
+								//	: ""	
+							
+							+ 
+							(y.koyl.vowel||"")
+							: y.koyl.roowawch
+						)
+					
+				))
+				.join("")
+			return a
+		}
+		
+		this.Deeboyr = this.db = Deeboyr
+		this.makeSoundFromOys = this.msfo = 
+			makeSoundFromOys
 		//translator automatically
 		this.targoom
 			/*means translation*/
@@ -288,7 +483,7 @@ var oyss = (new function() {
 				var preef
 				if(firstTwo.length > 1) {
 					preef = getWhatPrefixItIsIfAny(
-						firstTwo	
+						firstTwo, x	
 					)
 					
 				}
@@ -309,6 +504,160 @@ var oyss = (new function() {
 				}
 			})
 			return rez.join(" ")
+		}
+		
+		
+	
+		this.oys = oys
+		function Dawvawr(input="") {
+			var shtickles = []
+			
+			
+			
+			var firstRoundRemovedCommasSpacesEtc = ""
+			input.split("").forEach(x => {
+				if(!oys.includes(x))
+					x = " "
+				firstRoundRemovedCommasSpacesEtc+=x
+			})
+			
+			removeExtras(firstRoundRemovedCommasSpacesEtc, " ")
+			shtickles = 
+				firstRoundRemovedCommasSpacesEtc
+				.split(" ")
+				.filter(x=>x)
+			
+			console.log(po=shtickles)
+			this.shtickles = shtickles
+			var computedShtickles = shtickles.map(x=>cmp(x))
+			
+			this.computedShtickles = this.cs = computedShtickles
+			
+			
+			
+			
+		}
+		this.Dawvawr = this.Dawvar = this.Davar = Dawvawr
+		this.computeShtickle = this.cmp = cmp
+		this.dawgesh = this.dag = this.dagish = this.dagesh
+		= dag
+		function cmp(sht = "") {
+			var letters = []
+			var i
+			var curLetter = ""
+			var curOys = new OysMitseeyoos()
+			var curWord = Deeboyr()
+			for(i = 0; i < sht.length; i++) {
+				 if(sht[i] == dag) {
+					curOys.dagesh = true
+				}
+				if(onlyLetters.includes(sht[i])) {
+					if(curLetter) {
+						curWord.push(curOys)
+						curOys.koylify()
+						curOys = new OysMitseeyoos()
+					} 
+					curLetter = sht[i]
+					curOys.oys = curLetter
+
+				} else if(allNekoodos.includes(sht[i])) {
+					curOys.vowel = sht[i]	
+
+				} else if(
+					curWord.length > 0
+				) {
+					curWord.push(curOys)
+					curOys.koylify()
+					
+					curOys = new OysMitseeyoos()
+					if(curWord.length > 0)
+						letters.push(curWord)
+					curWord = Deeboyr()
+					curLetter = ""
+				}
+				
+				if(i == sht.length - 1) {
+					if(onlyLetters.includes(sht[i])) {
+						if(curLetter) {
+						curWord.push(curOys)
+						curOys.koylify()
+						}
+					}
+					if(curWord.length > 0) {
+						letters.push(curWord)
+					}
+				}
+
+				
+				
+				
+			
+			}
+
+			return letters
+
+		}
+		
+	
+		function OysMitseeyoos(wrd) {
+			if(!wrd) wrd = {}
+			if(wrd.letter) {
+				var lt = wrd.letter.toLowerCase()
+				var engl = e2h[lt]
+				var heeb = lettersInOrder[lt]
+				if(engl) {
+					this.letter = engl
+				} else if(heeb) {
+					this.letter = heeb	
+				}
+			}
+			
+			this.dagesh = !!(wrd.dagesh || wrd.dawgesh ||
+				wrd.dawgish)
+			
+			if(wrd.vowel) {
+				var vwl = wrd.vowel.toLowerCase()
+				var ev = e2hv[vwl]
+				if(ev) {
+					this.vowel = ev	
+				} else if(voylsInOrder.includes(vwl)) {
+					this.vowel = vwl	
+				}
+			}
+			var slf = this
+			this.koylify = () => (
+				slf.koyl = makeSoundFromOys(slf)
+			)
+		}
+	
+		function removeDuplicates(arAy) {
+			var things = {}
+			arAy.forEach(x=> {
+				if(!things[x]) {
+					things[x] = 1	
+				}
+			})
+			return Object.keys(things)
+		}
+		this.removeDuplicates = removeDuplicates
+	
+		function removeExtras(fullString, ext) {
+			var rz = []
+			var count = 0
+			var shouldAdd = false
+			fullString.split("").forEach(x => {
+				shouldAdd = true
+				if(x == ext) {
+					count++
+					if(count > 1) {
+						shouldAdd = false
+
+					}
+				} else count = 0
+				if(shouldAdd) rz.push(x)
+
+			})
+			return rz.join("")
 		}
 	
 		function nikoodify(wrd = "") {
@@ -332,7 +681,7 @@ var oyss = (new function() {
 		
 		this.getWhatPrefixItIsIfAny = 
 			getWhatPrefixItIsIfAny
-		function getWhatPrefixItIsIfAny(letter="") {
+		function getWhatPrefixItIsIfAny(letter="", wholeWord="") {
 			var meaningOfPrefix = ""
 			
 			var i;
@@ -355,6 +704,7 @@ var oyss = (new function() {
 				because the vowels could determine if its a 
 				prefix or not, especially in cases of the hay
 			*/
+			if(wholeWord.length > 2) {
 			for(i = 0; i < prefix.length; i++) {
 				var p = prefix[i]
 				if(p[0][0] == letter[0]) {
@@ -397,78 +747,18 @@ var oyss = (new function() {
 					}
 				}
 			}
+			}
 			
 			return meaningOfPrefix
 		}
 		
-		this.koylify = function(heeb="") {
-			if(typeof(heeb) != "string")
-				return "LOL what is this?"
-
-			var splat = heeb.trim().split("")
-			var reezAr = []
-			var i
-			var voylzz=[]
-			var inda = 0
-			var vi = 0
-			var loyst=""
-			for(i = 0; i < splat.length; i++) {
-				var af, lst
-				if(i < splat.length - 1)
-					af = splat[i + 1]
-				if(voylzz.length > 0 && vi > 0)
-					lst = voylzz[vi - 1]
-				
-				if(reezAr.length > 0 && inda > 0)
-					loyst = reezAr[inda - 1]
-				
-				var cr = splat[i]
-				var lt = letors[splat[i]]
-				var vw = voyls[splat[i]]
-				
-				if(lt) {
-					if(af == dag) {
-						if(dawgisht[splat[i]])
-							lt=dawgisht[splat[i]]
-					}
-					if(af == choy) {
-						if(choyluhmd[cr])
-							lt = ""//choyluhmd[cr]
-					}
-					
-					
-					if(lt.length > 0) {
-						vi++
-
-						voylzz.push([lt,0])
-					}
-					reezAr.push(lt)
-				}else
-				if(vw) {
-				
-					vi++
-					voylzz.push([vw,1])
-					
-					reezAr.push(vw)
-				}
-				else if(splat[i] == " ")
-					reezAr.push(" ")
-				
-				if(reezAr.length > 1) {
-					var last = reezAr[reezAr
-									  .length- 2]
-					if(aytshEng.includes(last)) {
-						reezAr[reezAr.length-1] =
-							capFrst(reezAr[
-								reezAr.length - 1
-							])
-					}	
-					
-				}
-				
-			}
-			console.log(voylzz, vw, vi, cr)
-			return reezAr.join("")
+		this.koylify = function(wrd) {
+			var sht = cmp(wrd)
+			okk=sht
+			return sht
+				.map(deeboyr=> 
+				deeboyr.koylify()
+			).join(" ")
 		}
 		
 		function capFrst(vw) {
@@ -507,6 +797,7 @@ var oyss = (new function() {
 			800: "ף",
 			900: "ץ"
 		},
+			lettersInOrder = Object.values(gematriaMap),
 			numbs = [
 				1488,
 				1489,
@@ -554,10 +845,10 @@ var oyss = (new function() {
 				"Aleph",
 				"Bays",
 				"Gimel",
-				"Dales",
+				"Dawles",
 				"Hey",
 				"Vuhv",
-				"Zaeein",
+				"Zaweeyin",
 				"Ches",
 				"Tes",
 				"Yood",
@@ -569,10 +860,10 @@ var oyss = (new function() {
 				"Noon",
 
 				"Sawmech",
-				"Aeein",
-				"Fay",
+				"Aweeyin",
+				"Pay",
 
-				"Tzadeek",
+				"Tzawdeek",
 
 				"Koof",
 				"Raysh",
@@ -581,12 +872,24 @@ var oyss = (new function() {
 				"Final_Chawf",
 				"Final_Mem",
 				"Final_Noon",
-				"Final_Fay",
-				"Final_Tzadeek",
-				"Koobootz",
+				"Final_Pay",
+				"Final_Tzadeek"
 
 
-			]
+			],
+			e2h = Object.fromEntries(
+				eng.map((x,i)=> ([
+					x.toLowerCase(), lettersInOrder[i]
+				])
+			))
+		this.OysMitseeyoos = this.OM = OysMitseeyoos
+		this.gematriaMap = gematriaMap
+		this.lettersInOrder = lettersInOrder
+		this.engToHebMap = this.englishToHebrewMap =
+			this.e2h = e2h
+		this.engToHebVowelMap = this.englishToHebrewVowelsMap =
+			this.e2hv = e2hv
+	
 		var isEnglish = false
 		if(oys[0].charCodeAt(0) !== 1488){
 			isEnglish = true
