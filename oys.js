@@ -4,6 +4,7 @@ var oyss = (new function() {
 		var voyls = {
 				'ֻ':"oo",
 				'ָ':"uh",
+				"ָ":"uh",
 				'ַ':"aw",
 				'ֶ':"eh",
 				'ֵ':"ay",
@@ -60,7 +61,7 @@ var oyss = (new function() {
 				"ל":"l",
 				"מ":"m",
 				"נ":"n",
-				"ס":"ss",
+				"ס":"s",
 				"ע":"",
 				"פ":"f",
 				"צ":"ts",
@@ -116,7 +117,7 @@ var oyss = (new function() {
 			dawgisht = {
 				"ב":"b",
 				"ו":"oo",
-				"כ":"ck",
+				"כ":"k",
 				"פ":"p",
 				"ת":"t",
 				"ך":"ck",
@@ -330,6 +331,7 @@ var oyss = (new function() {
 				"ש"	:true
 			}
 		var slf = this
+		this.allNekoodos = allNekoodos;
 		this.onlyVowels = onlyVowels
 		this.onlyLetters = onlyLetters
 		function makeSoundFromOys(mits) {
@@ -542,6 +544,9 @@ var oyss = (new function() {
 		this.dawgesh = this.dag = this.dagish = this.dagesh
 		= dag
 		function cmp(sht = "") {
+			sht = sht.trim()
+			if(sht[sht.length -1] != "")
+				sht += " "
 			var letters = []
 			var i
 			var curLetter = ""
@@ -550,7 +555,7 @@ var oyss = (new function() {
 			for(i = 0; i < sht.length; i++) {
 				 if(sht[i] == dag) {
 					curOys.dagesh = true
-				}
+				} else
 				if(onlyLetters.includes(sht[i])) {
 					if(curLetter) {
 						curWord.push(curOys)
@@ -558,8 +563,13 @@ var oyss = (new function() {
 						curOys = new OysMitseeyoos()
 					} 
 					curLetter = sht[i]
+					
 					curOys.oys = curLetter
 
+				} else if(sht[i] == "ׂ") {
+					curOys.lefty = true
+				} else if(sht[i] == "ׁ") {
+					curOys.righty = true
 				} else if(allNekoodos.includes(sht[i])) {
 					curOys.vowel = sht[i]	
 
@@ -593,12 +603,99 @@ var oyss = (new function() {
 				
 			
 			}
+			
+			//contextify
+			
+			var lk;
+			for(lk = 0; lk < letters.length; lk++) {
+				var letr = letters[lk]
+				var i;
+				for(i = 0; i < letr.length; i++) {
+					var w = letr[i]
+					var ar = letr;
+					
+					if(w.oys == "י") {
+						if(!w.vowel) {
+							if(i != letr.length -1)
+								w.koyl.roowawch = ""
+						}
+					} else
+					if(w.oys == "ח") {
+						if(i == letr.length -1) 
+							if(w.vowel == "ַ" ||
+							w.vowel == "ֲ") {
+							
+								w.koyl.roowawch = "awch"
+							}
+								
+					} else
+					
+					if(w.oys == "ש") {
+						if(w.lefty) {
+							w.koyl.kawsheh = "s"
+							
+							w.koyl.roowawch =
+							w.koyl.kawsheh + 
+							(w.koyl.vowel||"")
+							
+						}
+					} else
+					if(w.oys == "ה") {
+						if(i == letr.length -1) {
+							if(!w.vowel)
+								w.koyl.roowawch = ""
+						}
+					} else
+					if(w.oys == "ו") {
+						if(
+							w.vowel == "ֹ" || 
+							w.vowel == "ּ" ||
+							w.dagesh
+						) {
+							
+							if(i > 0) {
+								var c = ar[i - 1]
+							//	console.log("What are u",c,!!c.vowel)
+								if(!!c.vowel) {
+						//			console.log("kk",letr[i].koyl)
+									letr[i].koyl.kawsheh = "v"
+									w.koyl.vowel = vowelToSound(w.vowel)
+									letr[i].koyl.roowawch = 
+										w.koyl.kawsheh + 
+										(w.koyl.vowel)
+						//			console.log("kk",letr[i].koyl)
+								}
+							}
+						}
+					} else {
+						w.koyl.vowel = 
+							vowelToSound(w.vowel)
+						w.koyl.roowawch = 
+							w.koyl.kawsheh + 
+							(w.koyl.vowel)
+					}
+					
+					if(w.vowel == "ְ") {
+						if(i == letr.length - 1) {
+							w.koyl.vowel = ""
+							w.koyl.roowawch = w.koyl.kawsheh
+						}
+					}
+					
+				}
+			}
 
 			return letters
 
 		}
 		
-	
+		function vowelToSound(v) {
+			if(!v) return ""
+			if(Object.keys(voyls).includes(v))
+				return voyls[v]
+			else return ""
+		}
+		
 		function OysMitseeyoos(wrd) {
 			if(!wrd) wrd = {}
 			if(wrd.letter) {
