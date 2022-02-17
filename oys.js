@@ -1,1082 +1,307 @@
-//B"H
-var oyss = (new function() {
-		
-		var voyls = {
-				'ֻ':"oo",
-				'ָ':"uh",
-				"ָ":"uh",
-				'ַ':"aw",
-				'ֶ':"eh",
-				'ֵ':"ay",
-				'ִ':"ee",
-				'ֳ':"uh",
-				'ֲ':"aw",
-				'ֱ':"eh",
-				'ְ':"ih",
-				'ֹ':"o"
-			},
-			voylsInOrder = Object.keys(voyls),
-			englishVowels = [
-				"kooboots",
-				"kuhmuhts",
-				"pawtawch",
-				"sehguhl",
-				"tsayray",
-				"cheereek",
-				"chawtawf_kuhmuts",
-				"chawtawf_pawtawch",
-				"chawtawf_sehguhl",
-				"shivaw",
-				"choluhm"
-			],
-			
-			e2hv = Object.fromEntries(
-				voylsInOrder.map((x,i) => [
-					englishVowels[i],x
-				])
-			),
-			
-			aytsh = [
-				'ְ','ֱ',
-				'ֳ','ָ','ֶ'
-			],
-			needUp = [
-				
-			],
-			aytshEng = [
-				"uh", "eh", "ih"
-			],
-			letors = {
-				"א":"",
-				"ב":"v",
-				"ג":"g",
-				"ד":"d",
-				"ה":"h",
-				"ו":"v",
-				"ז":"z",
-				"ח":"ch",
-				"ט":"t",
-				"י":"y",
-				"כ":"ch",
-				"ל":"l",
-				"מ":"m",
-				"נ":"n",
-				"ס":"s",
-				"ע":"",
-				"פ":"f",
-				"צ":"ts",
-				"ק":"k",
-				"ר":"r",
-				"ש":"sh",
-				"ת":"s",
-				"ך":"ch",
-				"ם":"m",
-				"ן":"n",
-				"ף":"f",
-				"ץ":"ts"
-			},
-			otherMarks = [
-				'֤', 
-				'֙',  
-				'֔', 
-				'֛', 
-				'ֽ', 
-				'֥', 
-				'֖', 
-				'֣', 
-				'֑',
-				'ׁ',
-				'ׂ',
-				'֗', 
-				'֨', 
-				'֩', 
-				'֜', 
-				'֚', 
-				'֕',
-				'֧',
-				'֠', 
-				'֞', 
-				'֘', 
-				'֒',
-			],
-			other=[
-				'’',
-				'—',
-				'-',
-				'|',
-				'…',
-				'‘',
-				'־',
-			],
-			onlyLetters = Object.keys(letors),
-			
-			dag = 'ּ',
-			notDoubleable = [
-				"y", "h"
-			],
-			dawgisht = {
-				"ב":"b",
-				"ו":"oo",
-				"כ":"k",
-				"פ":"p",
-				"ת":"t",
-				"ך":"ck",
-				"ף":"p"	
-			},
-			choy = 'ֹ',
-			choyluhmd = {
-				"ו":"o"	
-			},
-			onlyVowels = Object.keys(voyls)
-				.concat(choy),
-			allNekoodos = onlyVowels.concat(
-				otherMarks, dag	
-			)
-			oys = allNekoodos,
-			
-			actshual = oys,
-			prefix = [
-				[
-					[
-						"ל",
-						'ְ'
-					], 
-					
-					"to"
-				],
-				[
-					[
-						"ל",
-						'ַ'
-					],
-				
-					"to the",
-				],
-				[
-				
-					[
-						"ל",
-						'ֲ'
-					],
-					
-					"to the"
-				],
-				
-				
-				[
-				
-					[
-						"מ",
-						'ֲ'
-					],
-					
-					"from the"
-				],
-				[
-				
-					[
-						"מ",
-						'ֲ'
-					],
-					
-					"from the"
-				],
-				
-				
-				[
-				
-					[
-						"מ",
-						'ִ'
-					],
-					
-					"from"
-				],
-					
-				[
-				
-					[
-						"ב",
-						'ֲ'
-					],
-					
-					"in the"
-				],
-				
-				[
-				
-					[
-						"ב",
-						'ַ'
-					],
-					
-					"in the"
-				],
-				
-				[
-				
-					[
-						"ב",
-						'ְ'
-					],
-					
-					"in"
-				],
-				
-				[
-				
-					[
-						"כ",
-						'ְ'
-					],
-					
-					"like"
-				],
-				
-				
-				[
-				
-					[
-						"כ",
-						'ַ'
-					],
-					
-					"like the"
-				],
-				
-				
-				[
-				
-					[
-						"כ",
-						'ֲ'
-					],
-					
-					"like the"
-				],
-				
-				
-				[
-				
-					[
-						"ו"
-					],
-					
-					"and"
-				],
-				
-				
-				[
-				
-					[
-						"ה",
-						'ָ'
-					],
-					
-					"the"
-				],
-				
-				
-				[
-				
-					[
-						"ה",
-						'ַ'
-					],
-					
-					"the"
-				]
-				,
-				
-				
-				[
-				
-					[
-						"ש",
-						'ׁ',
-						'ֶ'
-					],
-					
-					"that"
-				]
-				/*my through is 
-				dry its hard to 
-				talk a lot*/
-				
-				
-				/* wat is th efoundaiton
-				of chassidus from which 
-				all chassidus stems out
-				from?
-				
-				that the creation
-				is from the awtsmoos,
-				and that it happens
-				every instant
-				
-				
-				how can you know this 
-				and remeber all the time 
-				even when your not
-				learning torah?
-				
-				seekrit*/
-				
-				
-				
-				
-				
-			],
-			three = {
-				"ש"	:true
-			}
-		var slf = this
-		this.allNekoodos = allNekoodos;
-		this.onlyVowels = onlyVowels
-		this.onlyLetters = onlyLetters
-		function makeSoundFromOys(mits) {
-			return new Koyl(mits)
-			
-			
-			
-		//	return phoyn
-		}
-		
-		function Koyl(dayTuh) {
-			var cnst = dayTuh.cnst || dayTuh.cn ||
-					dayTuh.constinent
-			if(cnst) {
-				this.kawsheh = cnst	
-			}
-			var vwl = dayTuh.vowel || dayTuh.vwl
-			if(vwl) {
-				this.vowel = vwl	
-			}
-			
-			var mits = dayTuh
-			
-			var leto=mits.letter || mits.oys
-			var snd = ""
-			var voyl = mits.vowel
-			if(leto) {
-				
-				var dawg = dawgisht[leto]
-				if(mits.dagesh && dawg) {
-					
-					this.kawsheh = dawg	
-					
-				} else {
-					this.kawsheh = letors[leto]	
-				}
-				
-				var ch = choyluhmd[leto]
-				if(
-					ch &&
-					voyl == choy
-				) {
-					this.kawsheh = ""
-					this.vowel = ch
-				}
-			}
-			
-			
-			
-			if(voyl && voyls[voyl]) {
-				this.vowel = voyls[voyl]
-			}
-			
-			this.koylify = () => {
-				this.roowawch = (
-					(this.kawsheh || "") + 
-					(this.vowel || "")
-					
-				)
-			}
-			this.koylify()
-		}
-		this.Koyl = this.kyl = Koyl
-	
-		function Deeboyr() {
-			var a = [...arguments]
-			
-			/*args.forEach((x,i)=> {
-				this[i] = x
-			})
-			this.length = args.length
-			var ob = Array.from(this)*/
-			
-			
-			a.koylify = () =>
-				a
-				.filter(x=>
-					x.koyl.roowawch		
-				)
-				.map((y,i,a) => (
-					(
-						i > 0 &&
-						(
-							aytshEng
-							.includes(
-								a[i - 1].koyl.vowel
-							) 
-						)
-						&& !y.koyl.kawsheh
-					) ? "-" + capFrst(
-						y.koyl.roowawch	
-					) : (
-							i > 0 &&
-							y.koyl.kawsheh &&
-						
-							y.koyl.kawsheh[0]
-							.toLowerCase() ==
-							y.koyl.kawsheh[0] &&
-						
-							notDoubleable.includes(
-								y.koyl.kawsheh[0]
-							) 
-							&&
-							a[i - 1].koyl.roowawch[
-								a[i - 1]
-								.koyl
-								.roowawch.length - 1
-							] == 
-								y.koyl.kawsheh[0]
-								?
-								/*y.koyl.roowawch
-								.length > 1 ?*/
-								"-" + capFrst(
-									y.koyl.kawsheh)
-								//	: ""	
-							
-							+ 
-							(y.koyl.vowel||"")
-							: y.koyl.roowawch
-						)
-					
-				))
-				.join("")
-			return a
-		}
-		
-		this.Deeboyr = this.db = Deeboyr
-		this.makeSoundFromOys = this.msfo = 
-			makeSoundFromOys
-		//translator automatically
-		this.targoom
-			/*means translation*/
-			= function(h="") {
-			var spl = h.split(" ")
-				/*.map(y=>
-					y
-					.split("")
-					.filter(x=> x!= 'ֹ' )
-					.join("")
-				)*/
-			console.log(spl)
-			var f = prefix
-			var rez = []
-			spl.forEach(x => {
-				var check = 2;
-				
-				if(three[x[0]])
-					check = 3
-				
-				var firstTwo = x.substring(0,check)
-				var preef
-				if(firstTwo.length > 1) {
-					preef = getWhatPrefixItIsIfAny(
-						firstTwo, x	
-					)
-					
-				}
-				console.log(preef,x)
-				if(preef) {
-					
-					var rest = x.substring(check,
-										   x.length)
-					console.log("LOL!",rest,check)
-					var koyl = slf.koylify(rest)
-					
-					
-					rez.push(preef)
-					rez.push(koyl)
-				} else {
-					console.log(x)
-					rez.push(slf.koylify(x))
-				}
-			})
-			return rez.join(" ")
-		}
-		
-		
-	
-		this.oys = oys
-		function Dawvawr(input="") {
-			var shtickles = []
-			
-			
-			
-			var firstRoundRemovedCommasSpacesEtc = ""
-			input.split("").forEach(x => {
-				if(!oys.includes(x))
-					x = " "
-				firstRoundRemovedCommasSpacesEtc+=x
-			})
-			
-			removeExtras(firstRoundRemovedCommasSpacesEtc, " ")
-			shtickles = 
-				firstRoundRemovedCommasSpacesEtc
-				.split(" ")
-				.filter(x=>x)
-			
-			console.log(po=shtickles)
-			this.shtickles = shtickles
-			var computedShtickles = shtickles.map(x=>cmp(x))
-			
-			this.computedShtickles = this.cs = computedShtickles
-			
-			
-			
-			
-		}
-		this.Dawvawr = this.Dawvar = this.Davar = Dawvawr
-		this.computeShtickle = this.cmp = cmp
-		this.dawgesh = this.dag = this.dagish = this.dagesh
-		= dag
-		function cmp(sht = "") {
-			sht = sht.trim()
-			if(sht[sht.length -1] != "")
-				sht += " "
-			var letters = []
-			var i
-			var curLetter = ""
-			var curOys = new OysMitseeyoos()
-			var curWord = Deeboyr()
-			for(i = 0; i < sht.length; i++) {
-				 if(sht[i] == dag) {
-					curOys.dagesh = true
-				} else
-				if(onlyLetters.includes(sht[i])) {
-					if(curLetter) {
-						curWord.push(curOys)
-						curOys.koylify()
-						curOys = new OysMitseeyoos()
-					} 
-					curLetter = sht[i]
-					
-					curOys.oys = curLetter
+BH
+<button id="en">Englishify?
+</button>
+<div id="k">
+מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָם
+שֶהֶחֶזַרְתָּ בִּי נִשְמָתִי בְּחֶמְלָה
+רַבָּה אֱמוּנָתֶךָ
 
-				} else if(sht[i] == "ׂ") {
-					curOys.lefty = true
-				} else if(sht[i] == "ׁ") {
-					curOys.righty = true
-				} else if(allNekoodos.includes(sht[i])) {
-					curOys.vowel = sht[i]	
+בָּרוּךְ אַתָּה ה אֱלוֹקֵנוּ מֶלֶךְ הָעוֹלָם
+אֲשֶר קִדּשָנוּ בְּמִצְוֹתָיו וְצִוָּנוּ
+עַל נְטִילַת יָדָיִם
 
-				} else if(
-					curWord.length > 0
-				) {
-					curWord.push(curOys)
-					curOys.koylify()
-					
-					curOys = new OysMitseeyoos()
-					if(curWord.length > 0)
-						letters.push(curWord)
-					curWord = Deeboyr()
-					curLetter = ""
-				}
-				
-				if(i == sht.length - 1) {
-					if(onlyLetters.includes(sht[i])) {
-						if(curLetter) {
-						curWord.push(curOys)
-						curOys.koylify()
-						}
-					}
-					if(curWord.length > 0) {
-						letters.push(curWord)
-					}
-				}
+בָּרוּךְ אַתָּה ה אֱלוקֵנוּ מֶלֶךְ הָעוֹלָם
+אֲשֶר יָצַר אֶת הָאָדָם בְּחָכְמָה
+וּבָרָא בוֹ נְקָבִים נְקָבִים
+חֲלוּלִים חֲלוּלִים
+גָלוּי וְיָדוּע לִפנֵי כִסֵה כְבוּדֶךָ
+שֶאִם יִסָּתֵם אֶחָד מֵהֶם
+אוֹ אִם יִפָּתֵחַ אֶחָד מֵהֶם 
+אִי אֶפשַר לְהִתקַיֵם אֲפִילוּ שָעָה אֶחָת
+בָּרוּךְ אַתָּה ה רוֹפֵא כָל בָּשָׂר וּמַפְלִיא לַעֲשוֹת
 
-				
-				
-				
-			
-			}
-			
-			//contextify
-			
-			var lk;
-			for(lk = 0; lk < letters.length; lk++) {
-				var letr = letters[lk]
-				var i;
-				for(i = 0; i < letr.length; i++) {
-					var w = letr[i]
-					var ar = letr;
-					
-					if(w.oys == "י") {
-						if(!w.vowel) {
-							if(i != letr.length -1)
-								w.koyl.roowawch = ""
-						}
-					} else
-					if(w.oys == "ח") {
-						if(i == letr.length -1) 
-							if(w.vowel == "ַ" ||
-							w.vowel == "ֲ") {
-							
-								w.koyl.roowawch = "awch"
-							}
-								
-					} else
-					
-					if(w.oys == "ש") {
-						if(w.lefty) {
-							w.koyl.kawsheh = "s"
-							
-							w.koyl.roowawch =
-							w.koyl.kawsheh + 
-							(w.koyl.vowel||"")
-							
-						}
-					} else
-					if(w.oys == "ה") {
-						if(i == letr.length -1) {
-							if(!w.vowel)
-								w.koyl.roowawch = ""
-						}
-					} else
-					if(w.oys == "ו") {
-						if(
-							w.vowel == "ֹ" || 
-							w.vowel == "ּ" ||
-							w.dagesh
-						) {
-							
-							if(i > 0) {
-								var c = ar[i - 1]
-							//	console.log("What are u",c,!!c.vowel)
-								if(!!c.vowel) {
-						//			console.log("kk",letr[i].koyl)
-									letr[i].koyl.kawsheh = "v"
-									w.koyl.vowel = vowelToSound(w.vowel)
-									letr[i].koyl.roowawch = 
-										w.koyl.kawsheh + 
-										(w.koyl.vowel)
-						//			console.log("kk",letr[i].koyl)
-								}
-							}
-						}
-					} else {
-						w.koyl.vowel = 
-							vowelToSound(w.vowel)
-						w.koyl.roowawch = 
-							w.koyl.kawsheh + 
-							(w.koyl.vowel)
-					}
-					
-					if(w.vowel == "ְ") {
-						if(i == letr.length - 1) {
-							w.koyl.vowel = ""
-							w.koyl.roowawch = w.koyl.kawsheh
-						}
-					}
-					
-				}
-			}
-
-			return letters
-
-		}
-		
-		function vowelToSound(v) {
-			if(!v) return ""
-			if(Object.keys(voyls).includes(v))
-				return voyls[v]
-			else return ""
-		}
-		
-		function OysMitseeyoos(wrd) {
-			if(!wrd) wrd = {}
-			if(wrd.letter) {
-				var lt = wrd.letter.toLowerCase()
-				var engl = e2h[lt]
-				var heeb = lettersInOrder[lt]
-				if(engl) {
-					this.letter = engl
-				} else if(heeb) {
-					this.letter = heeb	
-				}
-			}
-			
-			this.dagesh = !!(wrd.dagesh || wrd.dawgesh ||
-				wrd.dawgish)
-			
-			if(wrd.vowel) {
-				var vwl = wrd.vowel.toLowerCase()
-				var ev = e2hv[vwl]
-				if(ev) {
-					this.vowel = ev	
-				} else if(voylsInOrder.includes(vwl)) {
-					this.vowel = vwl	
-				}
-			}
-			var slf = this
-			this.koylify = () => (
-				slf.koyl = makeSoundFromOys(slf)
-			)
-		}
-	
-		function removeDuplicates(arAy) {
-			var things = {}
-			arAy.forEach(x=> {
-				if(!things[x]) {
-					things[x] = 1	
-				}
-			})
-			return Object.keys(things)
-		}
-		this.removeDuplicates = removeDuplicates
-	
-		function removeExtras(fullString, ext) {
-			var rz = []
-			var count = 0
-			var shouldAdd = false
-			fullString.split("").forEach(x => {
-				shouldAdd = true
-				if(x == ext) {
-					count++
-					if(count > 1) {
-						shouldAdd = false
-
-					}
-				} else count = 0
-				if(shouldAdd) rz.push(x)
-
-			})
-			return rz.join("")
-		}
-	
-		function nikoodify(wrd = "") {
-			var s  = wrd.split("")
-			var rz = []
-			var i,cr
-			for(i = 0; i < s.length;i++){
-				cr = s[i]
-			}
-
-		}
-				/*depends
-				for davening hashem understands
-				all languages
-				
-				and learning has to be understood
-				
-				bu its still good to know hebrew for chassidus
-				etc 
-				*/
-		
-		this.getWhatPrefixItIsIfAny = 
-			getWhatPrefixItIsIfAny
-		function getWhatPrefixItIsIfAny(letter="", wholeWord="") {
-			var meaningOfPrefix = ""
-			
-			var i;
-			/*
-				trying to find what hebrew 
-				letter exists in dictionary of
-				prefixes, and if it does, then 
-				extract the meaning and return it
-				
-				length means we go from 0 to the end to
-				look to see if the current "letter" [hebrew]
-				exists in the dictionary
-				
-				scanning the prefix dictionary for 
-				a potential letter to see if its a prefix
-				
-				numbers represent what prefix it is,
-				which is itself made up of another array
-				that includes he vowels of the letters
-				because the vowels could determine if its a 
-				prefix or not, especially in cases of the hay
-			*/
-			if(wholeWord.length > 2) {
-			for(i = 0; i < prefix.length; i++) {
-				var p = prefix[i]
-				if(p[0][0] == letter[0]) {
-					if(p[0][2]) {
-						if(
-							p[0][1] ==
-							letter[1] &&
-							p[0][2] ==
-							letter[2]
-						) {
-							meaningOfPrefix = p[1]
-							break;	
-						}
-							
-					} else
-					if(p[0][1]){
-					if(
-					   p[0][1] == letter[1]
-					) {
-						//has vowel and is prefix
-						meaningOfPrefix = p[1]
-						break;
-							/*
-								p[1] is the english
-								meaning of the hebrew letter,
-								which is p[0]
-								
-								one set of p[0] and p[1]
-								for each prefix
-								
-								goes through each to see if it is
-							*/
-					}
-					/*same level a satsmoos, but in 
-					actual as opposed to potential*/
-					}
-					else {
-						meaningOfPrefix = p[1]
-						break;
-					}
-				}
-			}
-			}
-			
-			return meaningOfPrefix
-		}
-		
-		this.koylify = function(wrd) {
-			var sht = cmp(wrd)
-			okk=sht
-			return sht
-				.map(deeboyr=> 
-				deeboyr.koylify()
-			).join(" ")
-		}
-		
-		function capFrst(vw) {
-			return (
-				vw.length > 1 ? 
-				vw[0].toUpperCase() +
-				vw.substr(1) : vw.toUpperCase()
-			)
-		}
-		var gematriaMap = {
-			1: "א",
-			2: "ב",
-			3: "ג",
-			4: "ד",
-			5: "ה",
-			6: "ו",
-			7: "ז",
-			8: "ח",
-			9: "ט",
-			10: "י",
-			20: "כ",
-			30: "ל",
-			40: "מ",
-			50: "נ",
-			60: "ס",
-			70: "ע",
-			80: "פ",
-			90: "צ",
-			100: "ק",
-			200: "ר",
-			300: "ש",
-			400: "ת",
-			500: "ך",
-			600: "ם",
-			700: "ן",
-			800: "ף",
-			900: "ץ"
-		},
-			lettersInOrder = Object.values(gematriaMap),
-			numbs = [
-				1488,
-				1489,
-				1490,
-				1491,
-				1492,
-				1493,
-				1494,
-				1495,
-				1496,
-				1497,
-				1499,
-				1498,
-				1500,
-				1502,
-				1501,
-				1504,
-				1503,
-				1505,
-				1506,
-				1508,
-				1507,
-				1510,
-				1509,
-				1511,
-				1512,
-				1513,
-				1514,
-				1456,
-				1457,
-				1458,
-				1459,
-				1460,
-				1461,
-				1462,
-				1463,
-				1464,
-				1465,
-				1466,
-				1467,
-				1468,
-				1469
-			],
-			eng = [
-				"Aleph",
-				"Bays",
-				"Gimel",
-				"Dawles",
-				"Hey",
-				"Vuhv",
-				"Zaweeyin",
-				"Ches",
-				"Tes",
-				"Yood",
-				"Chawf",
-
-				"Lamed",
-				"Mem",
-
-				"Noon",
-
-				"Sawmech",
-				"Aweeyin",
-				"Pay",
-
-				"Tzawdeek",
-
-				"Koof",
-				"Raysh",
-				"Shin",
-				"Suhf",
-				"Final_Chawf",
-				"Final_Mem",
-				"Final_Noon",
-				"Final_Pay",
-				"Final_Tzadeek"
-
-
-			],
-			e2h = Object.fromEntries(
-				eng.map((x,i)=> ([
-					x.toLowerCase(), lettersInOrder[i]
-				])
-			))
-		this.OysMitseeyoos = this.OM = OysMitseeyoos
-		this.gematriaMap = gematriaMap
-		this.lettersInOrder = lettersInOrder
-		this.engToHebMap = this.englishToHebrewMap =
-			this.e2h = e2h
-		this.engToHebVowelMap = this.englishToHebrewVowelsMap =
-			this.e2hv = e2hv
-	
-		var isEnglish = false
-		if(oys[0].charCodeAt(0) !== 1488){
-			isEnglish = true
-			actshual = eng.join("$")
-			var maftaychos = Object.keys(gematriaMap)
-			gematriaMap = Object.fromEntries(
-				eng.map((e, i) => (
-					[
-						maftaychos[i],
-						eng[i]
-					]
-				))
-			)
-		}
-		this.gematria = nm => {
-			if(typeof(nm) == "number") {
-				return (function numberificly(nm) {
-					var noom = nm.toString();
-					var places = [], i, k,
-						digits = "1234567890",
-						full = "",
-						finished = 0
-					for(i = 0; i < noom.length; i++) {
-						full = ""
-						var restOfLength = noom.length - i;
-						for(k = 0; k < restOfLength - 1; k++) {
-							full += 0
-						}
-						full = noom[i] + full
-						finished = parseInt(full)
-
-						places.push(finished)
-
-					}
-					places = places.map(y => {
-						var x = y;
-						if(x > 900) {
-							var cur = x;
-							var arr = []
-							for(i = x; i >= 0; i--) {
-								var it = x - 900
-								if(it >= 0) {
-									arr.push(900)
-									x = it
-								} else {
-									arr.push(numberificly(x))
-									break
-								}
+אֱלֹקַי נְשָמָה שֶנָתַתָּ בִּי טְהוֹרָה הִיא
+אַתָּה בְרָאתָהּ אַתָּה יְצַרְתָּהּ אַתָּה נְפַחְתָּה בִּי
+וְאַתָּה מְשַמְּרָה בּקִרְבִּי
+וְאַתָּה עָתִיד לִטְּלָהּ מִמֶנִּי וּלְהַחֲזִירָה בִּי לֶעָתִיד לָבֹא
+כָּל זְמַן שֶהַנְּשָמָה בְּקִרְבּי
+מוֹדֶה אַנִי לְפָנֶיךָ ה אלוקי ואלוקי
+אֲבוֹתַי
+רִבּוֹן כָּל הַמַּעֲשִׂים
+אֲדוֹן כּל הַנְשָמוֹת
+בּרוּךְ אַתָּה ה הַמַּחֲזִיר נְּשָמוֹת לִפְגָרִים מֵתִים
 
 
 
-							}
-							return arr.flat()
-						}
-						return x
-					})
-					return places.flat().filter(x => x)
-				})(nm).map(x => (
-					gematriaMap[x]
-				)).join(
-					isEnglish ? "$" 
-					: ""
-				)
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+הַנוֹתֵן לַשֶׂכְוִי בִינָה
+לְהַבְחִין בֵּין יוֹם וּבֵין לָיְלָה
 
-			} else if(typeof(nm) == "string") {
-				var list = actshual.split(
-					isEnglish ? "$" :
-					""
-				)
-				var words = nm.split(" ")
-				var lettersInWords = words.map(w => (
-					w.split(
-						isEnglish ? "$" :
-						""
-					)
-				))//.filter(x => x)
-				var keys = Object.keys(gematriaMap),
-					vals = Object.values(gematriaMap)
-				var numbersFromLetters = lettersInWords.map((y) => 
-															y.map(x => 
-																  (vals.includes(x)) ? 
-																  keys[vals.indexOf(x)]
-																  : ""
-																 ).join(".")
-														   ).join(" ")//.filter(x => x)
-//9294058690
-				return numbersFromLetters
-			}
-		}
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+פּוֹקֵח עִוְרִים
 
-		this.toString = () => 
-		actshual
-	})
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+מַתִּיר אַסוּרִים
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+זוֹקֵף כְּפוּפִים
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+מַלְבִּיש עֲרֻמִּים
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+הַנּוֹתֵן לַיָעֵף כֹּח
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+הַמֵּכִין מְצְעֲדֵי גָבֶר
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+שֶעָשָׂה לִי כָּל צָרְכִּי
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+אוֹזֵר יְשְׂרָאֵל בִּגְבוּרָה
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+עוֹטֵר יְשְׂרָאֵל בְּתִפְאָרָה
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+שֶלֹּא עָשַׂנִי גּוֹי
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+שֶלֹּא עָשַׂנִי עָבֶד
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+שֶלֹּא עָשַׂנִי אִשָּה
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+הֲמַּעֲבִיר שֵנָה מֵעֵינָי ותְנוּמָה מֵעַפְעַפָּי
+וִיהִי רָצוֹן מִלְּפָנֶיךָ ה אלוקנו
+ואלוקי אֲבוֹתֵינוּ
+שֶתַּרְגִילֵנּ בְּתוֹרָתֶךָ
+וְתַדְבִּיקֵנוּ בּמִצְוֹתֶיךָ
+וְאַל תְּבִיאֵנוּ לֹא לִידֵי
+חֵטְא וְלֹא לִידֵי 
+עֲבֵרָה וְעָוֹן
+וְלֹא לִידֵי נִסְּיוֹן וְלֹא לִידֵי
+בִזָיוֹן וְאַל יִשְלוֹט בָּנוּ
+יֵצֶר הָרָה וְהַרְחִיקֵנוּ מֵאָדָם רָע וּמֵחָבֵר רָע
+וְדַבְּקֵנוּ בּיֵצֶר טּוֹב וּבְמַעֲשִׂים טוֹבִם
+וְכוֹף אֶת יִצְרֵנוּ לְהִשתַּעְבֶּד לָךְ
+וּתְנֵנוּ הַיוֹם וּבְכָל יוֹם לְחֵן וּלְחֶסֶד
+וּלְרַחֲמִים בּעֵינֶיךָ וּבְעֵינֵי כָל
+רוֹאֵינוּ וְתִגְמְלֵנוּ חֲסָדִים טוֹבִים
+בּרוּךְ אַתָּה ה 
+הַגוֹמֵל חֲסָדִים טוֹבִים לְעַמּוֹ יִשְׂרָאֵל
+יְהִי רָצוֹן מִלְפָנֶיךָ ה אלוקַי ואלוקֵי אֲבוֹתַי
+שֶתּצִילֵנִי הַיּוֹם וּבְכָל יוֹם מֵעַזֵי פַנִים
+וּמֵעַזוּת פָּנִים מֵאָדָם רָע
+וּמֵחָבֵר רָע וּמִשָכֵן רָע וּמִפֶּגַע רָע מֵעַיִן הָרָע 
+מִלָּשוֹן הָרָע מִמַּלְשִינוּת מֵעֵדוּת שֶקֶר 
+מִשִׂנאַת הַבּרִיּוֹת מֵעֲלִילָה מִמִּיתָה מְשֻנֶה
+מֵחֳלָיִם רָעִים וּמִמִּקְּרִים רָעִים
+וּמִשָּׂטָן הַמַּשְחִית מִדִּין קָשֶה וּמִבַּעַל דִּין
+קָשֶה בֵּין שֶהוּא בֶן בְּרִית וּבֵין
+שֶאֵינוֹ בֶן בְּרִית וּמִדִּינָהּ שֶל גֵּיהִנֹם
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+אֲשֶר קִדְּשָנוּ בְּמִצְוֹתָיו וְצִוָּנוּ עַל דִּבְרֵי תוֹרָה
+
+וְהַעֲרֶב נָא ה אלוקנו אֶת דִּבְרֵי תוֹרָתְךָ
+בּפִינוּ וּבְפִי כל עַמְּךָ בֵּית יִשְׂרָאֵל
+וְנִהְיֶה אֲנֲחְנוּ וְצֶאֱצָאֵינוּ וְצֶאֱצָאֵי כָל עַמְּךָ
+בֵּית יִשְׂרָאֵל כֻּלּנוּ יּוֹדְעֵי שְמֶךָ וְלוֹמְדֵי
+תוֹרָתְךָ לִשְמָה בָּרוךְ אַתָּה ה הַמְלַמֵּד 
+תּוֹרָה לְעַמּוֹ יִשְׂרָאֵל
+
+בָּרוּךְ אַתָּה ה אלוקנו מֶלֶךְ הָעוֹלָם
+אֲשֶר בָּחַר בָּנוּ מִכָּל הָעַמִּים וְנָתַן 
+לָנוּ אֶת תּורָתוֹ בָּרוּךְ אַתָּה ה נוֹתֵן הַתּוֹרָה
+
+וַיְדַבֵּר ה אֶל מֹשֶה לֵאמֹר דֲּבֵּר אֶל אַהֲרֹן 
+וְאֶל בָּנָיו לֵאמֹר כֹּה תְבָרֲכוּ אֶת בּנֵי
+יִשְׂרָאֵל אָמוֹר לָהֶם 
+יְבָרֶכְךָ יי וְיִשְמְרֶךָ
+יָאֵר יי פָנָיו אֵלֶיךָ וִיחֻנֶּךָ
+יִשָּׂא ה פָּנָיו אֵלֶיךָ וְיָשֵׂם לְךָ שָלוֹם
+וְשָׂמוּ אֶת שְמִי עַל בְּנֵי יִשְׂרָאֵל וַאֲנִי אֲבָרֲכֵם
+
+אֵלוּ דבָרִים שֶאֵין לָהֶם שִעוּר
+הַפֵאָה וְהַבִּכּוּרִים וְהָרְאָיוֹן
+וּגְמִילוּת חֲסָדִים וְתַלְמוּד תּוֹרָה
+
+אֵלּוּ דבָרִים שֶאָדָם אוֹכֵל פֵּרוֹתֵיהֶם
+בָּעוֹלָם הַזֶה וְהַקֶרֶן קַיֶמֶת לָעוֹלם הבָּא
+וְאֵלוּ הֵן כּיבּוּד אָב וָאֵם וּגְמִילוּת
+חֲסָדִים וְשְכָּמַת בֵּית הַמִּדְרָש שַחֲרִית 
+וְעַרְבִית וְהַכְנָסַת אֹרחִים וּבִקּוּר חוֹלִים
+וְהַכְנָסַת כּלָּה וְהַלְוָיַת הַמֵּת וְעִיּוּן
+תְּפִלּה וַהֲבָאֲת שָלוֹם שֶבֵּין אָדָם
+לַחֲבֵרוֹ וּבֵין אִיש לְאִשתּוֹ
+וְתַלְמוּד תּוֹרה כְּנֶגֶד כֻּלָּם
+
+בּרוּךְ אַתָּה יי אלוקנו מָלָךְ הַעוֹלָם
+אֲשֶר קִדְּשָנוּ בְּמִצְוֹתָיו
+וְצִוָּנוּ עַל מִצְוַת צִיצִת
+
+הַרֵינִי מְקַבֵּל עָלַי מִצוַת עַשֵה
+שֶל וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ
+
+מַה טֹּבוּ אֹהָלֶיךָ יַעֲקֹב
+מִשְכְּנֹתֶיךָ יִשְרָאֵל
+
+וַאֲנִי בְּרֹב חַסְדְּךָ אָבֹֹא בֵתֶיךָ
+אֶשְתַּחֲוֶה אֶל הֵיכַל 
+קָדְשְךָ בְּיִרְאָתֶךָ
+
+וַאֲנִי תְפִלָּתִי לְךָ יי
+עֵת רָצוֹן אלוקים
+בּרָב חַסְדֶּךָ עֲנֵנִי
+בֶּאֱמֶת יִשְעֱךָ
+
+אֲדוֹן עוֹלם אַשֶר מָלַךְ
+בּטֶרֶם כָּל יְצוּר נִבְרָה
+לְעֵת נַעֲשָׂה בְחֶפְצוֹ כֹּל
+אַזַי מֶלֶךְ שְמוֹ נִקְרָא
+
+וְאַחֲרֵי כִּכְלוֹת הַכֹּל
+לְבַדּו יִמְלוֹךְ נוֹרא
+וְהוֹא הָיָה וְהוּא הוֶֹה
+וְהוּא יִהְיֶה בְּתִפְאָרָה
+
+וְהוּא אֶחָד וְאֵין שֵנִי
+לְהַמְשִיל לוֹ לְהַחְבִּירָה
+בּלִי רֵאשִית בְּלִי תַכְלִית
+וְלוֹ הָעֹז וְהַמִּשׂרָה
+
+וְהוּא קֵ־אלִי וְחַי גֹּאַלִי
+וְצוּר חֶבְלִי בּעֵת צָרָה
+וְהוּא נִסִּי וּמָנוֹס לִי
+מְנָת כּוֹסִי בּיוֹם אֶקְרָא
+
+בְּיָדוֹ אַפְקִיד רוּחִי
+בּעֵת אִישן וְאָעִירָה
+וְעִם רוּחִי גּוִיָתִי 
+ה לִי וְלֹא אִירָא
+
+אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ
+זָכְרֵנוּ בְּזִכָּרוֹן טוֹב 
+לְפָנֶיךָ וּפָקְדֵנוּ בִּפְקוּדת
+יְשוּעָי וְרַחֲמִים מִשְּמֵי
+שְמֵי קֶדֶם וּזְכָר לָנוּ יי
+אֱלֹהֵנוּ אַהֲבַת הַקַדְמוֹנִים
+אַבְרָהָם יִצְחָק וְיִשׂרָאֵל
+עֲבָדֱיךָ וְאֶת הַבְּרִית וְאֶת
+הַחֶסֶד וְאֶת הַשבוּעָה
+שֶנִשְבַּעְתָּ לְאַבְרָהָם אָבִינוּ
+בְּהַר הַמוֹרִיָה וְאֶת הָעֲקֵדָה
+שֶעָקַד אֶת יִצְחָק בְּנוֹ עַל
+גַּבֵּי הַמִזְבּחַ כַּכָּתוּב בְּתוֹרָתֶךָ
+
+וַיְהִי אַחַר הַדְּבָרִים הָאֵלֶה
+וְהָאֱלֹהִם נִסָּה אֶת אַבְרָהָם
+וַיֹּאמֶר אֵלָיו אַבְרָהָם
+:וַיֹּאמֶר הִנֵנִי
+
+וַיֹּאמֶר קַח נָא אֶת בּנְךָ
+אֶת יְחִידְךָ אֲשֶר אָהַבְתָּ
+אֶת יִצְחָק וְלֶךְ לָךָ אֶל
+אֶרֶץ הַמֹּרִיָּה וְהַעֲלֵהוּ שָם 
+לְעֹלָה עַל אַחַד הֶהָרִים
+:אֲשֶר אֹמַר אֵלֶיךָ
+
+וַיַשְכֵּם אַבְרָהָם בַּבֹּקֶר
+וַיַחַבֹש אֶת חֲמֹרוֹ וַיִקּח
+אֶת שְנֵי נְעָרָיו אִתּוֹ
+וְאֵת יִצחָק בּנוֹ וַיְבַקַּע
+עֲצֵי עֹלָה וַיָקָם וַיֵלֶךְ
+אֶל הַמָּקוֹם אֲשֶר 
+:אָמַר לוֹ הָאֶלֹהִם
+
+בַּיּוֹם הַשְּלִישִי וַיִשָא 
+אַבְרָהָם אֶת עֵינָיו וַיַרְא
+:אֶת הַמָּקוֹם מֵרָחֹק
+
+וַיֹּאמֶר אַבְרָהָם אֶל נְעָרָיו
+שְבוּ לָכֶם פֹּה עִם הַחֲמוֹר
+וַאֲנִי וְהַנַעַר נֵלְכָה עַד כֹּה
+:וְנִשְתַּחֲוֶה וְנָשוּבָה אֲלֵיכֶם
+
+וַיִּקַּח אַבְרָהָם אֶת עֲצֵי
+הָעֹלָה וַיָשׂם עַל יִצְחַק
+בְּנוֹ וַיִּקַח בְּיָדוֹ אֶת הָאֵש
+וְאֶת הַמַּאֲכֶלֶת וַיֵּלכוּ
+:שְנֵיהֶם יַחְדָּו
+
+וַיֹּאמֶר יִצְחָק אֶל אַבְרָהָם 
+אָבִיו וַיֹּאמֶר אָבִי
+וַיֹּאמֶר הִנֶנִי בְנִי וַיֹּאמֶר
+הִנֵה הָאֵש וְהָעֵצִים
+:וְאַיֵה הַשֶׂה לְעֹלָה
+
+וַיֹּאמֶר אַבְרָהָם אֱלֹהִים
+יִרְאֶה לּוֹ הַשֶׂה לְעֹלָה בְּנִי 
+:וַיֵּלְכוּ שְנֵיהֶם יַחְדָּו
+
+וַיָבֹאוּ אֶל הַמָּקוֹם אֲשֶר 
+אָמַר לוֹ הָאֱלֹהִים
+וַיִבֶן שָם אַבְרָהָם
+אֶת הַמִּזְבֵּח וַיַעֲרֹֹךְ
+אֶת הָעֵצִים וַיַקֹד אֶת
+יִצְחָק בּנוֹ וַיָשֶׂם אֹתוֹ
+:עַל הַמִּזְבֵּחַ מִמֲּעַל לָעֵצִים
+
+וַיִּשְלַח אַבְרָהָם אֶת יָדוֹ
+וַיִקַח אֶת הַמַּאֲכֶלֶת 
+:לִשחֹט אֶת בְּנוֹ
+
+וַיִקְרָא אֵלָיו מַלָאַךְ יי
+מִן הַשָמַיִם וַיֹּאמֶר אַבְרָהָם
+:אַבְרָהָם וַיֹּאמֶר הִנֵנִ
+
+וַיֹּאמֶר אַל תִּשלַח יָדְךָ
+אֶל הַנַעַר וְאַל תַּעַשׂ לוֹ
+מְאוּמָה כִּי עַתָּה יָדַעְתִּי
+כִּי יְרֵא אֱלֹהִים אַתָּה
+וְלֹא חָשַׂכְתָּ אֶת בִּנְךָ
+:אֶת יְחִידְךָ מִמֶּנִּי
+
+וַיִשָּׂא אַבְרָהָם אֶת עֵינָיו
+וַיַרְא וְהִנֵה אַיִל אַחַר
+נֶאֱחַז בַּסּבַךְ בּקַרְנָיו
+וַיֵלֶךְ אַבְרָהָם וַיִקַח 
+אֶת הָאַיִל וַיַעֲלֵהוּ 
+:לְעֹלָה תַּחַת בּנוֹ
+
+וַיִקְרָא אַבְרָהָם שֵם הַמָּקוֹם
+הַהוּא יי יִרְאֶה אֲשֶר יֵאָמֵר
+:הַיּוֹם בְּהַר יי יֵרָאֶה
+
+וַיִקְרָא מַלְאַךְ יי אֶל 
+:אַבְרָהָם שֵנִית מִן הַשָּמָיִם
+
+וַיֹּאמֶר בִּי נִשְבּעְתִּי נְאֻם 
+יי כּי יַעַן אֲשֶר עָשִׂיתָ 
+אֶת הַדָּבָר הַזֶה וְלֹא 
+:חָשַׂכְתָּ אֶת בִּנְךָ אֶת יְחִידֶךָ
+
+כִּי בָרֵךְ אֲבָרֶכְךָ וְהַרְבָּה
+אַרְבֶּה אֶת זַרְעֲךָ כְּכוֹכְבֵי
+הַשָמַיִם וְכַחוֹל אֲשֶר עַל
+שַׂפַת הַיָם וְיִרַש זַרְעֲךָ
+:אֵת שַעַר אֹיְבָיו
+
+וְהִתְבָּרֲכוּ בְזַרְעֲךָ כֹּל גּוֹיֵי
+:הָאָרֶץ עֵקֶב אֲשֶר שָמַעְתָּ בְּקֹלִי
+
+וַיָשָב אַבְרָהָם אֶל נְעָרָיו
+וַיָקֻמוּ וַיֵּלכוּ יַחְדָּו אֶל 
+בְּאֵר שָבַע וַיֵשֶב אַבְרָהָם
+בִּבְאֵר שָבַע
+
+</div>
+
+<script>
+k.innerText = k.innerHTML
+</script>
+
+
