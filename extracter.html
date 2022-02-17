@@ -1,0 +1,302 @@
+BH
+<br>
+<input type="file" multiple id="q">
+<br>
+<input type="checkbox" checked=false id=aw>
+<button id="as" >OK now download it?</button>
+<div id=out></div>
+<a id=u></a>
+<script>
+var things = []
+
+as.onclick = () => {
+	if(aw.checked) {
+		things = things.map(q=> 
+			[q[0].split("Hebrew terms belonging to the root ").join(""),
+				q[1].map(v=> {
+
+					var doc = ra.parseFromString(v[1],"text/html")
+					window.doyk=doc
+
+					var oyvish = getIt(doc)
+					var rs = [v[0],
+						oyvish
+					//	v[1]
+					]
+
+					return rs
+				})
+			]
+		)
+	} else {
+		taybilaweez(things)
+	}
+	
+	u.href = URL.createObjectURL(new Blob([
+		"//B\"H" + 
+		"\n//<meta charset='utf-8'><br><script>" + 
+		"function heebrific(w){window.s = w}" + 
+		
+		"\n" + 
+		"heebrific("
+			+JSON.stringify(things)
+		+")"
+		+"</" +"script>"
+	], {type:"text/html"}))
+	u.download="awl.html"
+	u.click()
+}
+
+function heebrific(w) {
+	things = things.concat(w)
+	window.ok = w
+	console.log("LOL",w)
+	
+	console.log(window.uy=w)
+
+}
+
+var ra = new DOMParser()
+q.onchange = () => {
+	var cur = 0
+	getOne()
+	function getOne() {
+		//var sc = document.createElement("script")
+		
+		fetch(URL.createObjectURL(q.files[cur]))
+		.then(r=>r.text())
+		.then(r=> {
+			eval(r)
+			
+			if(cur < q.files.length - 1) {
+				cur++
+				getOne()
+			} else console.log("OK ready?!")
+				
+
+		})
+	}
+	
+	
+}
+
+function taybilaweez(th) {
+	var f;
+	for(f = 0; f < th.length; f++) {
+		var k
+		for(k = 0; k < th[f][1].length;k++) {
+			var q
+			for(q = 0; q < th[f][1][1].length;
+				q++) {
+				var b
+				for(
+					b = 0;
+					b < th[f][1][1][1].length;
+					b++
+				) {
+					var x
+					for(
+						x = 0;
+						x < th[f][1][1][1][1]
+							.length;
+						x++
+					) {
+						var h = th
+							[f]
+							[1]
+							[1]
+							[1]
+							[1]
+							[x]
+						if(
+							h[0]
+							.includes
+							("Conj")
+						) {
+							var t = 
+							h[1][0]
+						}
+					}
+				}
+			}
+				
+		}
+	}
+}
+
+function getFromTable(table) {
+	
+}
+function getIt(elOLoMints) {
+
+	var rt = Array
+	.from(
+		elOLoMints
+		//.getElementsByClassName("mw-parser-output")[0]
+		.body
+		.children
+	)
+	
+	var heeb = [];
+	var stH = -1;
+	var i;
+	for(i = 0; i < rt.length; i++) {
+		var c = rt[i];
+		if(c.innerText.includes("[edit]")) {
+			stH = i;
+			heeb.push([c.innerText,[]])
+		} else if(stH > -1) {
+			var tx;
+			if(c.getElementsByTagName("table").length) {
+				var tay = c.getElementsByTagName("table")[0];
+				tx = Array.from(tay.rows).map(
+					q=>
+					Array.from(q.cells)
+					.map(
+						r=>(f=>
+							(
+								[f, 
+									(at=>
+										!isNaN(at) 
+										&& at !== null 
+										? parseInt(at) : 1
+									)(r.getAttribute("colspan")),
+									(at=>
+										!isNaN(at) 
+										&& at !== null 
+										? parseInt(at) : 1
+									)(r.getAttribute("rowspan"))
+								]
+							)
+						)(r.innerText)
+					)
+				)
+			}
+			else tx = c.innerText.split("•")
+				.map(w=>w.split("\n")
+					.map(
+						q=>q.trim()
+					)
+					.map(q=>q.length==1?q[0]:q)
+					.filter(w=>w)
+				).map(q=>q.length==1?q[0]:q)
+				.filter(w=>w)
+			heeb[heeb.length-1][1].push(tx)
+		}
+
+	}
+	
+	return heeb;
+}
+	
+function getWrds(doy) {
+	var ob = {}
+	var rt = Array
+	.from(
+		doy
+		//.getElementsByClassName("mw-parser-output")[0]
+		.body
+		.children
+	)
+	var layng = []
+	var hb = []
+
+	var curLInd = 0
+	var hedLines = Array
+		.from(
+			document
+			.querySelectorAll("h2 .mw-headline"))
+			.map(r=>r.innerText)
+		
+	ob.layng = layng
+	ob.hedLines = hedLines
+	ob.hb=hb
+	ob.rt=rt
+	
+	window.ob=ob
+	var curL = hedLines[curLInd]
+	var i;
+	for(i = 0; i < rt.length; i++)  {
+		var e = rt[i]
+		if(e.tagName != "HR" && i != rt.length-1)
+			hb.push(e)
+		else {
+			layng.push([curL,hb])
+			hb = []
+			curLInd++
+			curL = hedLines[curLInd]
+		}
+	}
+	var heeb = layng.find(r=>r&&r[0]&&r[0].includes("ebrew"))
+	//heeb[1]
+	
+	var inds = []
+	var types;
+	if(heeb&&heeb.length>1) {
+		types = heeb[1].filter((r,i)=> (
+			r.tagName.toLowerCase() == "h3" &&
+			r.children.length &&
+			r.children[0].className == "mw-headline" &&
+			!(r.children[0].innerText.includes("ronunciation")) &&
+			!(r.children[0].innerText.includes("ee also")) &&
+
+			!(r.children[0].innerText.includes("tymolo")) &&
+			!(r.children[0].innerText.includes("Anag")) 
+			&& (inds.push(i) || 1)
+		))
+		
+		inds = inds.filter(d => d < heeb[1].length-2)
+		var wrd = inds.map((r,q)=> [
+		
+			[heeb[1][r    ].children[0].innerText],
+			[heeb[1][r + 1].innerHTML],
+			[heeb[1][r + 2].innerHTML]
+		])
+		return wrd
+	}
+	
+	ob.types=types
+	ob.inds=inds
+	
+	
+}
+
+function tayb(s) {
+    var cells=[]
+   
+    var takenCols = []
+    var takenRows = []
+    var rowPos = 0
+    s.forEach((row,rn,royz)=> {
+        
+        var colWidth = 0
+        var maxRH = 0
+        row.forEach((cell,cn)=>{
+            if(rn>0) {
+                
+            }
+            if(cell[2] > maxRH)
+                maxRH = cell[2]
+            var colPos = 0
+             if(takenCols[rn]) {
+                colPos+=takenCols[rn]
+            }
+            if(cn==0) colWidth+=colPos
+            cells.push([cell[0],colWidth,rowPos,cell[1],cell[2]])
+           
+            colWidth+=cell[1]
+            if(cell[2]>1) {
+                var k;
+                for(k = rn; k < rn+cell[2];k++) {
+                    takenCols[k]=cell[1]
+                }
+            }
+        })
+        
+        rowPos += maxRH
+        
+    })
+    return [cells,takenRows,takenCols]
+}
+//tayb(tay)
+</script>
